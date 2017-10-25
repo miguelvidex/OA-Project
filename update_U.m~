@@ -1,0 +1,13 @@
+function U=update_U(X,M,O,lambda,q,C)
+    U=zeros(size(X,1),C);
+    %Hard K-means
+    if lambda==1
+        for i=1:size(U,1)
+            [~c_min]=
+            U(i,min(norm(repmat(X(i,:),[C,1])-M'-O(:,i)')))=1;
+        end
+    %Soft K-means
+    else
+        ;
+    end
+end
