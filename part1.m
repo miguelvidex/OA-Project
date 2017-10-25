@@ -38,7 +38,7 @@ for i=1:length(X)
     end
 end
 
-threshold=10^(-3);
+threshold=10^(-6);
 
 t=2;
 M{1}=zeros(2,C);
