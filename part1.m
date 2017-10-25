@@ -11,7 +11,7 @@ C=N_clusters;
 %q = 1 implies hard K-means
 q=1;
 %
-lambda=0.5;
+lambda=0;
 %matrix with outliers
 O{1}=zeros(2,N);
 %Solutions are saved in U
