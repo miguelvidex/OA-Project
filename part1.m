@@ -11,7 +11,7 @@ C=N_clusters;
 %q = 1 implies hard K-means
 q=1;
 %
-lambda=0;
+lambda=10
 %matrix with outliers
 O{1}=zeros(2,N);
 %Solutions are saved in U
@@ -46,7 +46,8 @@ M{1}=zeros(2,C);
 M{t}=update_M(U{t-1},X,O{t-1},q,C);
 O{t}=update_O(X,M{t},U{t-1},lambda,q,C,N);
 U{t}=update_U(X,M{t},O{t},lambda,q,C,N);
-while norm(mean(M{t},2)-mean(M{t-1},2))>threshold
+
+while (norm(M{t}-M{t-1},'fro')/norm(M{t},'fro'))>threshold
    t=t+1
    M{t}=update_M(U{t-1},X,O{t-1},q,C);
    O{t}=update_O(X,M{t},U{t-1},lambda,q,C,N);
@@ -58,3 +59,4 @@ hold on
 plot(X(:,1),X(:,2),'.')
 plot(ponto_medio(1),ponto_medio(2),'*')
 hold off
+
