@@ -9,8 +9,9 @@ function O=update_O(X,M,U_prev,lambda,q,C,N)
             Num=Num+(U_prev(i,c).^q)*(X(i,:)'-M(:,c));
         end
         %r(i,:)=sum((U_prev(i,:).^q).*(X(i,:)-M'),2)/sum(U_prev(i,:).^q,2);
-        r(:,i)= Num/sum(Den);
+        r(:,i)= Num/Den;
         %equacao 11
         O(:,i)=r(:,i)*max((1-lambda/(2*norm(r(:,i)))),0);
+        Num=0;
     end
 end
