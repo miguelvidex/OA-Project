@@ -18,7 +18,7 @@ function U=update_U(X,M,O,lambda,q,C,N)
                     Num(cd) = (norm(X(i,:)-M(:,cd)'-O(:,i)',2))^2 + lambda*norm(O(:,i)',2);
                     Quoc = Quoc + (Num(c)/Num(cd))^(1/(q-1));
                 end
-                U(i,c)=Quoc^(-1);
+                U(i,c) = Quoc^(-1);
                 Quoc=0;
             end
         end
