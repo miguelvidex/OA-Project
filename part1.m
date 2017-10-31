@@ -9,7 +9,7 @@ X=[dataset(:,1),dataset(:,2)];
 %number of clusters C
 C=N_clusters;
 %q = 1 implies hard K-means
-q=1;
+q=1.5;
 %
 lambda=10;
 %matrix with outliers(initialize it without outliers)
