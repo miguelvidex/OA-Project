@@ -1,9 +1,8 @@
 function plot_it(M,O,X,U,N,t)
-   %time that you want between iterations
    clf
    hold on
    P=0;
-   m_plot=plot(M(1,:),M(2,:),'ok');
+   plot(M(1,:),M(2,:),'ok');
    for i=1:N
        [~,I] = max(U(i,:));
        if O(:,i)~=0
