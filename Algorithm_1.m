@@ -9,7 +9,9 @@ function [M_final, O_final, U_final]=Algorithm_1(M_init,O_init,X,U_init,N,C,lamb
     t=2;
     M{t}=update_M(U_init,X,O_init,q,C);
     O{t}=update_O(X,M{t},U_init,lambda,q,C,N);
+    %U_CVX=update_U_cvx(X,M{t},O{t},lambda,C,N);
     U{t}=update_U(X,M{t},O{t},lambda,q,C,N);
+    sum(sum(U{t}-update_U_cvx(X,M{t},O{t},lambda,C,N),1),2)
     if print_flag==1
         plot_it(M{t},O{t},X,U{t},N,t)
     end

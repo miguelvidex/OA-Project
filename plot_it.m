@@ -1,7 +1,8 @@
 function plot_it(M,O,X,U,N,t)
-   clf
    hold on
    P=0;
+   figure(t);
+   hold on
    plot(M(1,:),M(2,:),'ok');
    for i=1:N
        [~,I] = max(U(i,:));
@@ -17,6 +18,11 @@ function plot_it(M,O,X,U,N,t)
             plot(X(i,1),X(i,2),'.b');
        end
    end
-   title(['t = ' num2str(t)])
+   if t==1
+        title('Hard Key means')
+   else
+       title('Soft Key means')
+   end
    pause(P)
+   hold off
 end

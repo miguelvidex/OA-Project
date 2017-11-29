@@ -74,4 +74,5 @@ for i=1:1:2
     n_outliers_set{i}= sum(O{i}(1,:)~=0 & O{i}(2,:)~=0,2);
     %number of points that are not int the corrected cluster
     errors_clustering_set{i}=length(nonzeros(dataset(:,3)-cluster));
+    plot_it(M{i},O{i},X,U{i},N,i)
 end
