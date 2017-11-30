@@ -26,18 +26,19 @@ n_outliers_soft=zeros(1,N_points);
 k=1;
 linelambda=linspace(2,20,N_points);
 for lambda_i=1:N_points
-    [M_final_hard{lambda_i}, O_final_hard{lambda_i}, U_final_hard{lambda_i}]=Algorithm_1(M_init,O_init,X,U_init,N,C,linelambda(lambda_i),q_hard,threshold,print_flag);
+    [M_final_hard{lambda_i}, O_final_hard{lambda_i}, U_final_hard{lambda_i}, U_final_cvx_hard{lambda_i},t_hard(1,lambda_i),t_hard(2,lambda_i)]=Algorithm_1(M_init,O_init,X,U_init,N,C,linelambda(lambda_i),q_hard,threshold,print_flag);
     n_outliers_hard(1,lambda_i)= sum(O_final_hard{lambda_i}(1,:)~=0 & O_final_hard{lambda_i}(2,:)~=0,2);
 end
-disp('Hard key-means done')
+disp('Hard k-means done')
+
 for lambda_i=1:N_points
-    [M_final_soft{lambda_i}, O_final_soft{lambda_i}, U_final_soft{lambda_i}]=Algorithm_1(M_init,O_init,X,U_init,N,C,linelambda(lambda_i),q_soft,threshold,print_flag);
+    [M_final_soft{lambda_i}, O_final_soft{lambda_i}, U_final_soft{lambda_i},~,t_soft(lambda_i),~]=Algorithm_1(M_init,O_init,X,U_init,N,C,linelambda(lambda_i),q_soft,threshold,print_flag);
     n_outliers_soft(1,lambda_i)= sum(O_final_soft{lambda_i}(1,:)~=0 & O_final_soft{lambda_i}(2,:)~=0,2);
 end
-disp('Soft key-means done')
+disp('Soft k-means done')
 figure(11)
 plot(linelambda,n_outliers_soft,'.-r')
-title('SOFT Key-Means')
+title('SOFT K-Means')
 xlabel('\lambda') % x-axis label
 ylabel('Numero de outliers') % y-axis label
 
@@ -47,14 +48,15 @@ title('HARD Key-Means')
 xlabel('\lambda') % x-axis label
 ylabel('Numero de outliers') % y-axis label
 %---------------------------------------------------
-%             ANALYSES OF THE RESULTS
+%             ANALYSIS OF THE RESULTS
 %---------------------------------------------------
 
 q=[q_hard q_soft];
 lambda_final=linelambda(12)
 M={M_final_hard{12} M_final_soft{12}};
 O={O_final_hard{12} O_final_soft{12}};
-U={U_final_hard{12} U_final_soft{12}};
+U={U_final_hard{12} U_final_soft{12} U_final_cvx_hard{12}};
+t=[t_hard(1,12) t_hard(1,12)];
 for i=1:1:2
     %norm of the error between the center of mass that we found and the real ones
     [error_mass_center(1),cluster_i(1)]=min(sqrt(sum((M{i}(:,1)-[center_1',center_2',center_3',center_4']).^2, 1)));
@@ -76,3 +78,6 @@ for i=1:1:2
     errors_clustering_set{i}=length(nonzeros(dataset(:,3)-cluster));
     plot_it(M{i},O{i},X,U{i},N,i)
 end
+
+% Error between using U from hard K-means and from cvx
+error_cvx = sum(sum(U{3}-U{1},2),1);
