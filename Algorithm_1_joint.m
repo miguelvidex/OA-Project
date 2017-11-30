@@ -1,4 +1,4 @@
-function [M_final, O_final, U_final,U_final_cvx,t,k]=Algorithm_1(M_init,O_init,X,U_init,N,C,lambda,q,threshold,print_flag)
+function [M_final, O_final, U_final,U_final_cvx,t,k]=Algorithm_1_joint(M_init,O_init,X,U_init,N,C,lambda,q,threshold,print_flag)
     if nargin < 10
         print_flag = 1;
     end
