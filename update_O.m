@@ -12,6 +12,6 @@ function O=update_O(X,M,U_prev,lambda,q,C,N)
         r(:,i)= Num/Den;
         %equacao 11
         O(:,i)=r(:,i)*max((1-lambda/(2*norm(r(:,i)))),0);
-        Num=0;
+        Num=[0;0];
     end
 end
