@@ -18,7 +18,9 @@ function plot_it(M,O,X,U,N,t)
             plot(X(i,1),X(i,2),'.b');
        end
    end
-   if t==1
+   if t==3
+        title('CVX Hard Key Means')
+   elseif t==1
         title('Hard Key means')
    else
        title('Soft Key means')

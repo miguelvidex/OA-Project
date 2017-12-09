@@ -12,7 +12,7 @@ q_hard=1;
 q_soft=1.5;
 cvx_flag=0;
 
-%matrix with outliers(initialize it without outliers)
+%matrix with outliers(initialize it all vectores outliers)
 O_init=zeros(2,N);
 %Solutions are saved in U (initialize it)
 load('Init_variables.mat');
@@ -37,13 +37,13 @@ for lambda_i=1:N_points
     n_outliers_soft(1,lambda_i)= sum(O_final_soft{lambda_i}(1,:)~=0 & O_final_soft{lambda_i}(2,:)~=0,2);
 end
 disp('Soft K-means done')
-figure(11)
+figure(13)
 plot(linelambda,n_outliers_soft,'.-r')
 title('SOFT K-Means')
 xlabel('\lambda') % x-axis label
 ylabel('Numero de outliers') % y-axis label
 
-figure(12)
+figure(11)
 plot(linelambda,n_outliers_hard,'.-r')
 title('HARD K-Means')
 xlabel('\lambda') % x-axis label
@@ -76,6 +76,7 @@ for i=1:1:2
     n_outliers_set{i}= sum(O{i}(1,:)~=0 & O{i}(2,:)~=0,2);
     %number of points that are not int the corrected cluster
     errors_clustering_set{i}=length(nonzeros(dataset(:,3)-cluster));
+    plot_it(M{i},O{i},X,U{i},N,i)
 end
 
 %---------------------------------------------------
@@ -83,6 +84,8 @@ end
 %---------------------------------------------------
 
 cvx_flag=1;
-[~, ~, U{3},t_cvx]=Algorithm_1(M_init,O_init,X,U_init,N,C,lambda_final,q_hard,threshold,print_flag,cvx_flag);
-error_cvx = sum(sum(U{3}-U{1},1),2);
+[M_CVX, O_CVX, U_CVX,t_cvx]=Algorithm_1(M_init,O_init,X,U_init,N,C,lambda_final,q_hard,threshold,print_flag,cvx_flag);
+plot_it(M_CVX,O_CVX,X,U_CVX,N,3);
+error_cvx = sum(sum(abs(U_CVX-U{1}),1),2)
+n_outliers_cvx=sum(O_CVX(1,:)~=0 & O_CVX(2,:)~=0,2)
 improvement = t_hard(12) - t_cvx

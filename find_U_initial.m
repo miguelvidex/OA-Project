@@ -30,7 +30,7 @@ n_outliers=zeros(1,N_points);
 loglambda=logspace(-2,3,N_points);
 best_U_indice=1;
 for log_lambda_i=1:N_points
-    [M_aux, O_aux, U_aux]=Algorithm_1(M_init,O_init,X,U_init,N,C,loglambda(log_lambda_i),q_hard,threshold,print_flag);
+    [M_aux, O_aux, U_aux]=Algorithm_1(M_init,O_init,X,U_init,N,C,loglambda(log_lambda_i),q_hard,threshold,print_flag,0);
     if any(isnan(M_aux(:)))
         n_outliers(1,log_lambda_i)=nan;
     else

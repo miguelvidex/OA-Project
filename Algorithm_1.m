@@ -4,7 +4,7 @@ function [M_final, O_final, U_final,t]=Algorithm_1(M_init,O_init,X,U_init,N,C,la
     end
     if print_flag==1
         figure
-        plot_it(M_init,O_init,X,U_init,N,1)
+        plot_it(M_init,O_init,X,U_init,N,1);
     end
     t=2;
     M{t}=update_M(U_init,X,O_init,q,C);
@@ -39,7 +39,21 @@ function [M_final, O_final, U_final,t]=Algorithm_1(M_init,O_init,X,U_init,N,C,la
     M_final=M{t};
     O_final=O{t};
     U_final=U{t};
-
+    if q==1
+        figure(12)
+    else
+        figure(14)
+    end
+    hold on
+    cor=rand(1,3);
+    for i=1:t
+        plot(M{1,i}(1,:),M{1,i}(2,:),'.','color',cor)
+    end
+    title(['Actualizacao dos centros de massa para diferentes valores de \lambda para q=' num2str(q)])
+    xlabel('x') % x-axis label
+    ylabel('y') % y-axis label
+    
+    fprintf('lambda:%f number of iterations:%d \n',lambda,(t-1))
     if print_flag==1
         hold off
     end
