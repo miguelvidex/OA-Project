@@ -11,7 +11,7 @@ C=N_clusters;
 q_hard=1;
 q_soft=1.5;
 cvx_flag=0;
-best_lambda_i=1;
+best_lambda_i=[];
 
 
 %matrix with outliers(initialize it all vectores outliers)
@@ -31,8 +31,8 @@ linelambda=linspace(2,20,N_points);
 for lambda_i=1:N_points
     [M_final_hard{lambda_i}, O_final_hard{lambda_i}, U_final_hard{lambda_i},t_hard(lambda_i)]=Algorithm_1(M_init,O_init,X,U_init,N,C,linelambda(lambda_i),q_hard,threshold,print_flag,cvx_flag);
     n_outliers_hard(1,lambda_i)= sum(O_final_hard{lambda_i}(1,:)~=0 & O_final_hard{lambda_i}(2,:)~=0,2);
-    if abs(n_outliers_hard(1,lambda_i)-80)< abs(n_outliers_hard(1,best_lambda_i)-80)
-        best_lambda_i=lambda_i;
+    if n_outliers_hard(1,lambda_i)==80
+        best_lambda_i=[ best_lambda_i ; lambda_i];
     end
 end
 disp('Hard K-means done')
@@ -58,6 +58,7 @@ ylabel('Numero de outliers') % y-axis label
 %             ANALYSIS OF THE RESULTS
 %---------------------------------------------------
 
+best_lambda_i=best_lambda_i(ceil(length(best_lambda_i)/2))
 q=[q_hard q_soft];
 lambda_final=linelambda(best_lambda_i)
 M={M_final_hard{best_lambda_i} M_final_soft{best_lambda_i}};

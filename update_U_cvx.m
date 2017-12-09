@@ -13,5 +13,6 @@ function U=update_U_cvx(X,M,O,lambda,C,N)
            sum(U,2)==ones(N,1);
            U(173,:)-U(247,:)==zeros(1,C);
            U(133,:)-U(267,:)==zeros(1,C);
-           norm(U(2,:)+U(3,:),Inf)<=1;
+           norm(U(25,:)+U(100,:),Inf)<=1;
+    cvx_end;
 end

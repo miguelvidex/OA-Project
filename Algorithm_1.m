@@ -19,22 +19,17 @@ function [M_final, O_final, U_final,t]=Algorithm_1(M_init,O_init,X,U_init,N,C,la
         plot_it(M{t},O{t},X,U{t},N,t)
     end
     M{t-1}=M_init;
-    if cvx_flag ==1
-        while (norm(M{t}-M{t-1},'fro')/norm(M{t},'fro'))>threshold
-            t=t+1;
-            M{t}=update_M(U{t-1},X,O{t-1},q,C);
-            O{t}=update_O(X,M{t},U{t-1},lambda,q,C,N);
+    while (norm(M{t}-M{t-1},'fro')/norm(M{t},'fro'))>threshold
+        t=t+1;
+        M{t}=update_M(U{t-1},X,O{t-1},q,C);
+        O{t}=update_O(X,M{t},U{t-1},lambda,q,C,N);
+        if cvx_flag ==1
             U{t}=update_U_cvx(X,M{t},O{t},lambda,C,N);
-        end
-    else
-        while (norm(M{t}-M{t-1},'fro')/norm(M{t},'fro'))>threshold
-            t=t+1;
-            M{t}=update_M(U{t-1},X,O{t-1},q,C);
-            O{t}=update_O(X,M{t},U{t-1},lambda,q,C,N);
+        else
             U{t}=update_U(X,M{t},O{t},lambda,q,C,N);
-            if print_flag==1
-                plot_it(M{t},O{t},X,U{t},N,t)
-            end
+        end
+        if print_flag==1
+            plot_it(M{t},O{t},X,U{t},N,t)
         end
     end
     M_final=M{t};
