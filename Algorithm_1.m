@@ -1,5 +1,6 @@
 function [M_final, O_final, U_final,t]=Algorithm_1(M_init,O_init,X,U_init,N,C,lambda,q,threshold,print_flag,cvx_flag)
-    if nargin < 10
+
+    if nargin < 11
       print_flag = 1;
     end
     if print_flag==1
