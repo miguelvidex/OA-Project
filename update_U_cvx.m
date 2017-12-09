@@ -11,6 +11,7 @@ function U=update_U_cvx(X,M,O,lambda,C,N)
        minimize(sum(sum(U.*OBJ,1),2));
        subject to
            sum(U,2)==ones(N,1);
+           %------Extra constraints -------
            U(173,:)-U(247,:)==zeros(1,C);
            U(133,:)-U(267,:)==zeros(1,C);
            norm(U(25,:)+U(100,:),Inf)<=1;
