@@ -18,7 +18,9 @@ lambda=10;
 O_init=zeros(2,N);
 %Solutions are saved in U (initialize it)
 %U{1}=initU(X,N,C);
-U_init=initU_randomly(N,C);
+%U_init=initU_randomly(N,C);
+%save('U_random.mat', 'U_init')
+load('U_random.mat');
 cvx_flag=0;
 
 %threshold to exit the 
@@ -28,7 +30,8 @@ M_init=zeros(2,C);
 
 N_points=100;
 n_outliers=zeros(1,N_points);
-loglambda=logspace(-1,2,N_points);
+%loglambda=logspace(-1,2,N_points);
+loglambda=linspace(13.33,13.39,N_points);
 best_U_indice=1;
 for log_lambda_i=1:N_points
     [M_aux, O_aux, U_aux]=Algorithm_1(M_init,O_init,X,U_init,N,C,loglambda(log_lambda_i),q_hard,threshold,print_flag,cvx_flag);
@@ -59,4 +62,4 @@ xlabel('\lambda') % x-axis label
 ylabel('Numero de outliers') % y-axis label
 
 U_init=best_U;
-save('Init_variables.mat', 'U_init')
+%save('Init_variables.mat', 'U_init')
