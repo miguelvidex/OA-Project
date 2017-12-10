@@ -23,7 +23,7 @@ M_init=zeros(2,C);
 
 %threshold to exit the 
 threshold=10^(-6);
-N_points=30;
+N_points=50;
 n_outliers_hard=zeros(1,N_points);
 n_outliers_soft=zeros(1,N_points);
 k=1;
